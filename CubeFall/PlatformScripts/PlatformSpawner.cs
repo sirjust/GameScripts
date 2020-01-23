@@ -35,6 +35,29 @@ public class PlatformSpawner : MonoBehaviour
 
         if(current_Platform_Spawn_Timer >= platform_Spawn_Timer)
         {
+            platform_Spawn_Count++;
+
+            Vector3 temp = transform.position;
+            temp.x = Random.Range(min_X, max_X);
+
+            GameObject newPlatform = null;
+
+            if(platform_Spawn_Count < 2)
+            {
+                newPlatform = Instantiate(platformPrefab, temp, Quaternion.identity);
+            } else if(platform_Spawn_Count == 2)
+            {
+                if(Random.Range(0,2) > 0)
+                {
+                    newPlatform = Instantiate(platformPrefab, temp, Quaternion.identity);
+                } else
+                {
+                    newPlatform = Instantiate(
+                        movingPlatforms[Random.Range(0, movingPlatforms.Length)],
+                        temp,
+                        Quaternion.identity);
+                }
+            }
 
         }
     }
