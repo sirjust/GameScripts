@@ -26,6 +26,7 @@ public class GameplayController : MonoBehaviour
         obstacles = new GameObject[numberOfObstacles];
 
         bgLength = bg1.GetComponent<BoxCollider2D>().size.x;
+        BgMotion(Speed);
 
         for(int i = 0; i < obstacles.Length; i++)
         {
@@ -62,6 +63,37 @@ public class GameplayController : MonoBehaviour
             {
                 counter = 0;
             }
+        }
+    }
+
+    public void GameOver()
+    {
+        for(int i = 0; i < obstacles.Length; i++)
+        {
+            // this stops all obstacles
+            obstacles[i].GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            // this stops the background movement
+            BgMotion(0);
+        }
+    }
+
+    void BgMotion(float speed)
+    {
+        myBody1.velocity = new Vector2(speed, 0);
+        myBody2.velocity = new Vector2(speed, 0);
+    }
+
+    public void Pause()
+    {
+        if (!pause)
+        {
+            Time.timeScale = 0f;
+            pause = true;
+        }
+        else if (pause)
+        {
+            Time.timeScale = 1f;
+            pause = false;
         }
     }
 }
